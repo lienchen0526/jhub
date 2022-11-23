@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  codehub:
+    build: ./hub
+    ports:
+      - "8000:8000"
+      - "25000-28000:25000-28000"

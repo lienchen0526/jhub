@@ -1,0 +1,12 @@
+FROM jupyterhub/jupyterhub:3.0.0
+
+COPY bin/code-server_4.8.3_amd64.deb /srv/jupyterhub/code-server_amd64.deb
+RUN apt update && apt install git -y &&\
+    pip3 install jupyter-vscode-proxy jupyter-server-proxy jupyterlab virtualenv jupyterhub-ldapauthenticator GitPython &&\
+    dpkg -i /srv/jupyterhub/code-server_amd64.deb
+
+COPY conf/config.py /srv/jupyterhub/config.py
+
+EXPOSE 8000
+
+CMD [ "jupyterhub", "-f", "/srv/jupyterhub/config.py" ]
